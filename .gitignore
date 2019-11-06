@@ -9,6 +9,10 @@
 */build/
 */bin/
 
+programs/*/bin/
+programs/*/build/
+
+.project
 # Ignore Gradle GUI config
 gradle-app.setting
 

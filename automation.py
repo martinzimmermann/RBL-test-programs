@@ -1,6 +1,7 @@
 import os, shutil, re, csv
 
 libs = [
+    {"name": "Original", "name": "Original", "jar" : 'original.jar', "version" : "old"},
     {"name": "Aging [,0.01,0.5]", "jar" : 'aging.jar', "version" : "aging", "replace" : "[,0.01,0.5]" },
     {"name": "Aging [,0.01,0.5|]", "jar" : 'aging.jar', "version" : "aging", "replace" : "[,0.01,0.5|]" },
     {"name": "Aging [,0.01,|0.5]", "jar" : 'aging.jar', "version" : "aging", "replace" : "[,0.01,|0.5]" },
@@ -9,17 +10,16 @@ libs = [
     {"name": "Activity only [0.2,,,1,0]", "jar" : 'DampingList.jar', "version" : "aging", "replace" : "[0.2,,,1,0]" },
     {"name": "Jaccard", "jar" : 'jaccard.jar', "version" : "new"},
     {"name": "Ochiai", "jar" : 'ochiai.jar', "version" : "new"},
-    {"name": "Original", "name": "Original", "jar" : 'original.jar', "version" : "old"},
     {"name": "Tarantula","jar" : 'tarantula.jar', "version" : "new"},
     ]
 
 # 'Robot (IAE)' and 'Robot configuration' only works on windows because the FMUs were only compiled for windows
 examples = [
-    {"name": 'Robot (IAE)', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
-    {"name": 'Robot configuration', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
     {"name": 'Temporary Fault (Master)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
     {"name": 'Total Faul (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
     {"name": 'Weather Szenario (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
+    {"name": 'Robot (IAE)', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
+    {"name": 'Robot configuration', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
     ]
 
 numberOfExecutions = 100
@@ -36,8 +36,8 @@ with open('results.csv', 'w', newline='') as csvfile:
         results = [example["name"]]
         for lib in libs:
             if("replace" in lib):
-                tempname = "programs/" + example["name"] + "_temp.rule"
-                shutil.copy2("programs/" + example["name"] + ".rule", tempname)
+                tempname = "rules/" + example["name"] + "_temp.rule"
+                shutil.copy2("rules/" + example["name"] + ".rule", tempname)
                 fin = open(tempname)
                 data = fin.read()
                 data = data.replace('.\n', lib["replace"] + '.\n', 3)
@@ -47,10 +47,10 @@ with open('results.csv', 'w', newline='') as csvfile:
                 fin.write(data)
                 fin.close()
             
-            os.chdir(example["name"] + " " + lib["version"])
+            os.chdir("programs/" + example["name"] + " " + lib["version"])
 
-            ruleFile = tempname if "replace" in lib else "programs/" + example["name"] +".rule"
-            os.system("gradle -Plib=../libs/" + lib["jar"] + " -PruleFile=\"../" + ruleFile + "\" fatJar")
+            ruleFile = tempname if "replace" in lib else "rules/" + example["name"] +".rule"
+            os.system("gradle -Plib=../../libs/" + lib["jar"] + " -PruleFile=\"../../" + ruleFile + "\" fatJar")
             
             success = 0
             for i in range(numberOfExecutions):
@@ -64,7 +64,7 @@ with open('results.csv', 'w', newline='') as csvfile:
             
             if os.path.isdir("build"):
                 shutil.rmtree("build")
-            os.chdir("..")
+            os.chdir("../..")
             if("replace" in lib):
                 os.remove(tempname)
         
