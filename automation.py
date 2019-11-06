@@ -13,12 +13,13 @@ libs = [
     {"name": "Tarantula","jar" : 'tarantula.jar', "version" : "new"},
     ]
 
+# 'Robot (IAE)' and 'Robot configuration' only works on windows because the FMUs were only compiled for windows
 examples = [
-    #{"name": 'Robot (IAE)', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
+    {"name": 'Robot (IAE)', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
     {"name": 'Robot configuration', "program" : "ModelicaSimulation-all.jar", "match" : r'Total distance from ideal: ([0-9]+\.[0-9]*)'},
-    #{"name": 'Temporary Fault (Master)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
-    #{"name": 'Total Faul (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
-    #{"name": 'Weather Szenario (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
+    {"name": 'Temporary Fault (Master)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
+    {"name": 'Total Faul (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
+    {"name": 'Weather Szenario (QRS)', "program" : "simulation-all-1.0-SNAPSHOT.jar", "match" : r'Successes %: ([0-9]+\.[0-9]*)'},
     ]
 
 numberOfExecutions = 100
