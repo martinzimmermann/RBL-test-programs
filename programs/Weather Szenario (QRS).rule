@@ -1,0 +1,4 @@
+-> +goal actions.firstRule.
+-> +goal actions.secondRule.
+-> +goal actions.thirdRule.
+goal -> #goal -goal actions.goal.
