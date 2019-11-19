@@ -6,7 +6,7 @@ import rule.Executor;
 
 public class Simulation {
 
-    public static int objectDetected = 0;
+    public static int successes = 0;
 
     public static void main(String[] args) {
         System.out.println("\u001B[32mStarting Simulation...\u001B[0m");
@@ -14,7 +14,7 @@ public class Simulation {
             Executor executor = null;
             try {
                 executor = new Executor(new BestPlanFinder());
-                executor.executesNTimes(Environment.getInstance().GetWeatherConditionsLeft());
+                executor.executesNTimes(250);
                 Environment.getInstance().reset();
             } catch (ClassNotFoundException e) {
                 assert false;
@@ -23,6 +23,6 @@ public class Simulation {
             }
         }
 
-        System.out.println("Successes %: " + (1.0 * objectDetected) / (4000));
+        System.out.println("Successes %: " + (1.0 * successes) / (250));
     }
 }

@@ -10,7 +10,7 @@ public class Simulation {
 
     public static void main(String[] args) {
         System.out.println("\u001B[32mStarting Simulation...\u001B[0m");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             Executor executor = null;
             try {
                 executor = new Executor(new BestPlanFinder());
@@ -23,6 +23,6 @@ public class Simulation {
             }
         }
 
-        System.out.println("Successes %: " + (1.0 * objectDetected) / (10 * 4000));
+        System.out.println("Successes %: " + (1.0 * objectDetected) / (4000));
     }
 }
