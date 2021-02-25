@@ -1,5 +1,0 @@
--> +bat actions.useBattery1.
--> +bat actions.useBattery2.
--> +bulb actions.useBulb1.
--> +bulb actions.useBulb2.
-bat, bulb -> #glow -bat -bulb actions.switchOn.
