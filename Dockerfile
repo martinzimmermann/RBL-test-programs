@@ -15,6 +15,7 @@ WORKDIR /root/gym-maze
 RUN pip3 install -e .
 
 COPY Experiments /root/Experiments
+RUN mkdir /root/Experiments/Java/lib/
 RUN cp /root/RBL-Framework/build/libs/rbl-0.5.1.jar /root/Experiments/Java/lib/rbl-0.5.1.jar
 WORKDIR /root/Experiments/Java
 RUN gradle build --no-daemon
